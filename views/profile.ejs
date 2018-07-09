@@ -66,25 +66,28 @@
 
         <!-- TWITTER INFORMATION -->
         <div class="col-sm-6">
-            <div class="well">
-                <h3 class="text-info"><span class="fa fa-twitter"></span> Twitter</h3>
 
-                <!-- check if the user has this token (is the user authenticated with this social account) -->
-                <% if (user.twitter.token) { %>
-                    <p>
-                        <strong>id</strong>: <%= user.twitter.id %><br>
-                        <strong>token</strong>: <%= user.twitter.token %><br>
-                        <strong>display name</strong>: <%= user.twitter.displayName %><br>
-                        <strong>username</strong>: <%= user.twitter.username %>
-                    </p>
+        <div class="well">
+            <h3 class="text-primary"><span class="fa fa-vk"></span> Vkontakte</h3>
 
-                    <a href="/unlink/twitter" class="btn btn-info">Unlink</a>
-                <% } else { %>
-                    <a href="/connect/twitter" class="btn btn-info">Connect Twitter</a>
-                <% } %>
+            <!-- check if the user has this token (is the user authenticated with this social account) -->
+            <% if (user.vk.token) { %>
+              <img src=<%=user.vk.avatar %> alt="avatar">
+                <p>
+                    <strong>id</strong>: <%= user.vk.id %><br>
+                    <strong>token</strong>: <%= user.vk.token %><br>
+                    <strong>email</strong>: <%= user.vk.email %><br>
+                    <strong>name</strong>: <%= user.vk.name %> <br>
+                    <strong>profileURL</strong>: <a href=<%= user.vk.profileURL %>><%= user.vk.profileURL %></a>
+                </p>
 
-            </div>
+                <a href="/unlink/vkontakte" class="btn btn-danger">Unlink</a>
+            <% } else { %>
+                <a href="/connect/vkontakte" class="btn btn-danger">Connect VK</a>
+            <% } %>
+
         </div>
+      </div>
 
         <!-- GOOGLE INFORMATION -->
         <div class="col-sm-6">
@@ -109,24 +112,7 @@
         </div>
     </div>
     <div class="row">
-      <div class="well">
-          <h3 class="text-danger"><span class="fa fa-vk"></span> Vkontakte+</h3>
 
-          <!-- check if the user has this token (is the user authenticated with this social account) -->
-          <% if (user.vk.token) { %>
-              <p>
-                  <strong>id</strong>: <%= user.vk.id %><br>
-                  <strong>token</strong>: <%= user.vk.token %><br>
-                  <strong>email</strong>: <%= user.vk.email %><br>
-                  <strong>name</strong>: <%= user.vk.name %>
-              </p>
-
-              <a href="/unlink/google" class="btn btn-danger">Unlink</a>
-          <% } else { %>
-              <a href="/connect/google" class="btn btn-danger">Connect Google</a>
-          <% } %>
-
-      </div>
     </div>
 
 </div>

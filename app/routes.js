@@ -110,6 +110,17 @@ module.exports = function(app, passport) {
     })
   );
 
+  // vkontakte ------------------------------
+  //This function will pass callback, scope and request new token
+app.get('/auth/vkontakte', passport.authenticate('vkontakte'));
+
+app.get('/auth/vkontakte/callback',
+  passport.authenticate('vkontakte', {
+    successRedirect: '/profile',
+    failureRedirect: '/'
+  })
+);
+
   // =============================================================================
   // AUTHORIZE (ALREADY LOGGED IN / CONNECTING OTHER SOCIAL ACCOUNT) =============
   // =============================================================================
@@ -161,16 +172,22 @@ module.exports = function(app, passport) {
     })
   );
 
-  // vkontakte ------------------------------
-  //This function will pass callback, scope and request new token
-app.get('/auth/vkontakte', passport.authenticate('vkontakte'));
+  //---Vk connect
+  app.get(
+    "/connect/vkontakte",
+    passport.authorize("vkontakte")
+  );
 
-app.get('/auth/vkontakte/callback',
-  passport.authenticate('vkontakte', {
-    successRedirect: '/profile',
-    failureRedirect: '/'
-  })
-);
+  // handle the callback after facebook has authorized the user
+  app.get(
+    "/connect/vkontakte/callback",
+    passport.authorize("vkontakte", {
+      successRedirect: "/profile",
+      failureRedirect: "/"
+    })
+  );
+
+
 
   // google ---------------------------------
 
@@ -232,6 +249,17 @@ app.get('/auth/vkontakte/callback',
       res.redirect("/profile");
     });
   });
+
+
+// vkontakte ---------------------------------
+app.get("/unlink/vkontakte", function(req, res) {
+  var user = req.user;
+  user.vk.token = undefined;
+  user.save(function(err) {
+    res.redirect("/profile");
+  });
+});
+
 };
 
 // route middleware to make sure a user is logged in

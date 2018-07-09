@@ -29,7 +29,7 @@ module.exports = (passport, configAuth) => {
                   id: profile.id,
                   token: token,
                   name: profile.displayName,
-                  email: (email = profile.emails[0].value)
+                  email: profile.emails[0].value
                 }
               })
                 .save()
